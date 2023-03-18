@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Monoton&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    font-family: "Karla", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@layer components {
+    .btn-orange {
+        @apply bg-gradient-to-r from-orange-400 to-orange-500 text-white bg-blend-multiply hover:from-orange-500 hover:to-orange-700 hover:opacity-90 hover:shadow-lg hover:shadow-orange-400;
+    }
+
+    .btn-blue {
+        @apply bg-gradient-to-r from-blue-500 to-blue-700 text-white bg-blend-multiply hover:from-blue-700 hover:to-blue-800 hover:opacity-90 hover:shadow-lg hover:shadow-blue-400;
+    }
+
+    .btn-pink {
+        @apply bg-gradient-to-r from-pink-500 to-pink-700 text-white hover:from-pink-600 hover:to-pink-800;
+    }
+
+    .section {
+        @apply my-4 border-t border-gray-200 p-4 mix-blend-normal shadow-lg shadow-gray-300;
+    }
+
+    .bg-darkblack {
+        @apply bg-gradient-to-r from-black to-gray-700;
+    }
+
+    .bg-darkblue {
+        @apply bg-gradient-to-r from-[#18184a] to-[#0a1779];
+    }
+}
+
+/* 
+.bg-darkblue {
+    background: linear-gradient(to right, #18184a, #19398a, #181f58);
+} */
+
+.bg-RR {
+    background-color: #ea1a85;
+}
+
+.bg-RCB {
+    background-color: #0a0a0a;
+}
+
+.bg-GT {
+    background-color: #0b4973;
+}
+
+.bg-LSG {
+    background-color: #a6144f;
+}
+
+.bg-SRH {
+    background-color: #f26522;
+}
+
+.bg-PBKS {
+    background-color: #84171b;
+}
+
+.bg-MI {
+    background-color: #003b7a;
+}
+
+.bg-DC {
+    background-color: #0078bc;
+}
+
+.bg-CSK {
+    background-color: #f4ad00;
+}
+
+.bg-KKR {
+    background-color: #552792;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 32px;
+    width: 32px;
+    background: goldenrod;
+    background: url("http://iconizer.net/files/Duesseldorf/orig/heart.png")
+        no-repeat;
+    margin-top: -15px;
+    border-radius: 0 !important;
+}
+input[type="range"] + .thumb {
+    background-color: #ff8a80 !important;
+}
+input[type="range"] + .thumb.active {
+    top: -35px !important;
+}
