@@ -18,7 +18,7 @@ export const MatchWinProbability = ({ match }: { match: IMatch }) => {
 
     useEffect(() => {
         setLoader(isLoading);
-    }, [isLoading]);
+    }, [isLoading, setLoader]);
 
     if (isError) {
         const message =

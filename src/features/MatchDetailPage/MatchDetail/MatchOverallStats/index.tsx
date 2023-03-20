@@ -12,12 +12,12 @@ interface IMatchOverallStats {
 export const MatchOverallStats = ({ match, stats }: IMatchOverallStats) => {
     const t1Stats: IStats = stats?.filter(
         (item: ITeamStats) =>
-            item.team1.shortname === match.team1.shortname && !item?.team2
+            item.team1.shortname === match?.team1?.shortname && !item.team2
     )?.[0]?.stats;
 
     const t2Stats: IStats = stats?.filter(
         (item: ITeamStats) =>
-            item.team1.shortname === match.team2.shortname && !item?.team2
+            item.team1.shortname === match?.team2?.shortname && !item.team2
     )?.[0]?.stats;
 
     return (

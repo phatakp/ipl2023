@@ -68,6 +68,7 @@ export const useAuthContext = () => {
         throw new Error("useAppState should be used within Context Provider");
 
     const { state, dispatch } = context;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [cookies, setCookie, removeCookie] = useCookies(["token"]);
 
     const setUserData = (data: IUser) =>

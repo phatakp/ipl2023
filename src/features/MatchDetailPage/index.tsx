@@ -47,7 +47,7 @@ export const MatchDetailPage = () => {
 
     useEffect(() => {
         setLoader(isMatchLoading || isStatsLoading);
-    }, [isMatchLoading, isStatsLoading]);
+    }, [isMatchLoading, isStatsLoading, setLoader]);
 
     if (isMatchError || isStatsError) {
         const message = matchError

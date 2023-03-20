@@ -11,6 +11,7 @@ export const SliderChevron = ({
             onClick={() => slide(direction, width)}
             className={`absolute ${direction}-0 z-10 cursor-pointer rounded-full p-4 hover:bg-pink-600`}
             src={`${process.env.REACT_APP_IMAGE_URL}/${direction}-chevron.svg`}
+            alt=""
         />
     );
 };

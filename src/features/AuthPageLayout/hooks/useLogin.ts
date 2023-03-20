@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { login } from "services/auth";
 
 export const useLogin = () => {
-    const { setTokenData, setNotAuthenticated, setUserData } = useAuthContext();
+    const { setTokenData, setNotAuthenticated } = useAuthContext();
     const navigate = useNavigate();
     const location = useLocation();
     const from =

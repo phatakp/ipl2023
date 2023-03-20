@@ -25,7 +25,7 @@ export const ChangeWinner = () => {
 
     useEffect(() => {
         setLoader(isTeamsLoading);
-    }, [isLoading]);
+    }, [isLoading, isTeamsLoading, setLoader]);
 
     if (isError) {
         const message =

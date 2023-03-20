@@ -49,6 +49,7 @@ export const PredictionForm = () => {
             amount: userPred?.amount ?? item?.min_bet ?? match?.min_bet,
             teamName: userPred?.team?.shortname ?? "",
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isUserPredLoading]);
 
     if (isError || isMatchError) {
@@ -150,7 +151,7 @@ export const PredictionForm = () => {
                                     item?.team1?.shortname === teamName
                                 }
                                 name="teamName"
-                                className="h-4 w-4 border-gray-300 bg-gray-100  md:h-6 md:w-6"
+                                className="h-4 w-4 border-gray-300 bg-gray-100 md:h-6 md:w-6"
                                 onChange={onFieldChange}
                             />
                         </div>
@@ -180,7 +181,7 @@ export const PredictionForm = () => {
                                     item?.team2?.shortname === teamName
                                 }
                                 name="teamName"
-                                className="h-4 w-4 border-gray-300 bg-gray-100  md:h-6 md:w-6 "
+                                className="h-4 w-4 border-gray-300 bg-gray-100 md:h-6 md:w-6 "
                                 onChange={onFieldChange}
                             />
                             <img

@@ -18,24 +18,25 @@ export const MatchStats = ({
         <div
             className={`col-span-3 flex flex-col items-center  justify-center gap-4`}
         >
-            {Object.entries(stats).map(([key, value]) => {
-                if (
-                    type !== "league" ||
-                    (type === "league" && key !== "knockout")
-                ) {
-                    let prob2;
-                    if (stats2) prob2 = stats2[key as keyof IStats];
-                    return (
-                        <MatchStatsItem
-                            key={key}
-                            prob1={getProb(value)}
-                            title={key.toUpperCase()}
-                            prob2={prob2}
-                            t2batfirst={t2batfirst}
-                        />
-                    );
-                } else return null;
-            })}
+            {stats &&
+                Object.entries(stats).map(([key, value]) => {
+                    if (
+                        type !== "league" ||
+                        (type === "league" && key !== "knockout")
+                    ) {
+                        let prob2;
+                        if (stats2) prob2 = stats2[key as keyof IStats];
+                        return (
+                            <MatchStatsItem
+                                key={key}
+                                prob1={getProb(value)}
+                                title={key.toUpperCase()}
+                                prob2={prob2}
+                                t2batfirst={t2batfirst}
+                            />
+                        );
+                    } else return null;
+                })}
         </div>
     );
 };

@@ -1,5 +1,4 @@
 import { Pagination } from "components/Pagination";
-import { useAuthContext } from "context/AuthContext";
 import { UserRow } from "features/DashboardPage/UserStandings/UserRow";
 import { useLoader } from "hooks/useLoader";
 import { usePlayers } from "hooks/usePlayers";
@@ -8,7 +7,6 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 export const UserStandings = () => {
-    const { state } = useAuthContext();
     const [page, setPage] = useState(1);
     const { isLoading, isError, error, data: userList } = usePlayers();
 
@@ -16,7 +14,7 @@ export const UserStandings = () => {
 
     useEffect(() => {
         setLoader(isLoading);
-    }, [isLoading]);
+    }, [isLoading, setLoader]);
 
     if (isError) {
         const message =

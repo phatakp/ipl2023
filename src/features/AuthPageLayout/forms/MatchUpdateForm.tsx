@@ -52,6 +52,7 @@ export const MatchUpdateForm = () => {
             t2overs: `${match?.t2score?.overs ?? 0.0}`,
             status: match?.status ?? "",
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isMatchLoading]);
 
     if (isMatchError) {

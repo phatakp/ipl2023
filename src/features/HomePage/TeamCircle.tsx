@@ -10,7 +10,7 @@ export const TeamCircle = () => {
 
     useEffect(() => {
         setLoader(isLoading);
-    }, [isLoading]);
+    }, [isLoading, setLoader]);
 
     if (isError) {
         const message =
@@ -30,6 +30,7 @@ export const TeamCircle = () => {
                 <img
                     src={`${process.env.REACT_APP_IMAGE_URL}/ipl-trophy.png`}
                     className="absolute top-1/2 left-[55%] w-[10rem] -translate-x-1/2 -translate-y-1/2 md:w-[25rem]"
+                    alt=""
                 />
                 <div>
                     {teams &&
@@ -40,6 +41,7 @@ export const TeamCircle = () => {
                                     index
                                 )}`}
                                 src={`${process.env.REACT_APP_IMAGE_URL}/teamLogos/${team.shortname}.png`}
+                                alt=""
                             />
                         ))}
                 </div>

@@ -16,16 +16,16 @@ export function useWindowDimensions() {
         getWindowDimensions()
     );
 
-    const handleResize = () => {
+    const handleResize = useCallback(() => {
         setWindowDimensions(getWindowDimensions());
-    };
+    }, [getWindowDimensions]);
 
     useEffect(() => {
         if (hasWindow) {
             window.addEventListener("resize", handleResize);
             return () => window.removeEventListener("resize", handleResize);
         }
-    }, [hasWindow, getWindowDimensions]);
+    }, [hasWindow, getWindowDimensions, handleResize]);
 
     const { width, height } = windowDimensions;
     return { width, height };

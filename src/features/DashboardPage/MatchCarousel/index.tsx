@@ -13,7 +13,7 @@ export const MatchCarousel = () => {
 
     useEffect(() => {
         setLoader(isLoading);
-    }, [isLoading]);
+    }, [isLoading, setLoader]);
 
     if (isError) {
         const message =

@@ -30,7 +30,7 @@ export const RegisterForm = () => {
 
     useEffect(() => {
         setLoader(isTeamsLoading);
-    }, [isLoading]);
+    }, [isLoading, isTeamsLoading, setLoader]);
 
     if (isError) {
         const message =

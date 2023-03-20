@@ -14,7 +14,7 @@ export const DashboardPage = () => {
 
     useEffect(() => {
         setLoader(isLoading);
-    }, [isLoading]);
+    }, [isLoading, setLoader]);
 
     if (isError) {
         const message =

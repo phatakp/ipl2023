@@ -12,7 +12,7 @@ export const UserDropdown = () => {
             <img
                 className="h-10 w-10 rounded-full"
                 src={`${process.env.REACT_APP_IMAGE_URL}/profile.png`}
-                alt="user photo"
+                alt=""
             />
         </button>
     );

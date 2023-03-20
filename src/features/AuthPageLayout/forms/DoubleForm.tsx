@@ -20,7 +20,7 @@ export const DoubleForm = () => {
 
     useEffect(() => {
         setLoader(isLoading || isUserPredLoading);
-    }, [isUserPredLoading]);
+    }, [isLoading, isUserPredLoading, setLoader]);
 
     if (isError) {
         const message =
