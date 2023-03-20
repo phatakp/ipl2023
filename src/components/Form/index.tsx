@@ -13,7 +13,7 @@ export const Form = ({ title, isLoading, onFormSubmit, children }: IForm) => {
             className="z-20 mx-auto max-w-lg  md:min-h-[300px]"
             onSubmit={onFormSubmit}
         >
-            {/* <h2 className="mb-4 text-center text-3xl font-bold uppercase text-gray-800">
+            {/* <h2 className="mb-4 text-3xl font-bold text-center text-gray-800 uppercase">
                 {title}
             </h2> */}
             <div className="flex flex-col items-center justify-center space-y-6">

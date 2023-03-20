@@ -44,12 +44,14 @@ export const LoginForm = () => {
                 onFieldChange={onFieldChange}
                 modal={false}
             />
-            <Link
-                to="/auth/validate-user"
-                className="text-black underline md:text-blue-600"
-            >
-                Forgot Password
-            </Link>
+            <div className="flex w-full justify-end">
+                <Link
+                    to="/auth/validate-user"
+                    className="text-right text-black underline md:text-blue-600"
+                >
+                    Forgot Password
+                </Link>
+            </div>
         </Form>
     );
 };

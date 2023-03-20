@@ -4,6 +4,7 @@ from django.core.management.base import BaseCommand
 
 file_path = settings.BASE_DIR / "templates" / "index.html"
 DJANGO_LOAD_STATIC = "{% load static %}"
+STATIC = "/static/"
 
 
 class Command(BaseCommand):
@@ -19,17 +20,18 @@ class Command(BaseCommand):
             f.truncate()
 
     def add_django_static_to_files(self, data):
-        SRC = 'src="/static'
-        HREF = 'href="/static'
+        SRC = 'src="/static/'
         srcpos = data.find(SRC)
-        endsrc = srcpos+data[srcpos:].find(">")
-        data = data[:srcpos+4] + "'" + \
-            '{% static "js/frontend-ui.js" %}' + "'" + data[endsrc:]
+        stpos = srcpos+data[srcpos:].find(STATIC)
+        endsrc = stpos+data[stpos:].find('"')
+        data = data[:stpos] + '{% static ' + "'" + \
+            data[stpos+8:endsrc] + "'" + '%}' + data[endsrc:]
 
+        HREF = 'href="/static/'
         hrefpos = data.find(HREF)
-        endhref = hrefpos+data[hrefpos:].find(">")
-        data = data[:hrefpos+5] + "'" + \
-            '{% static "css/frontend-ui.css" %}' + \
-            "'" + ' rel="stylesheet" /' + data[endhref:]
+        stpos1 = hrefpos+data[hrefpos:].find(STATIC)
+        endhref = stpos1+data[stpos1:].find('"')
+        data = data[:stpos1] + '{% static ' + \
+            "'" + data[stpos1+8:endhref] + "'" + '%}' + data[endhref:]
 
         return data

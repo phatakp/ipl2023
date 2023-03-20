@@ -11,7 +11,7 @@ export const AuthPanel = () => {
     return (
         <div className="z-10 p-4 md:p-8">
             <div className="grid grid-cols-1 items-center text-center">
-                <h3 className="col-span-2 text-3xl font-bold  text-white md:col-span-1">
+                <h3 className="col-span-2 text-3xl font-bold text-white md:col-span-1">
                     {authPage === AuthPageType.LOGIN
                         ? "Create an Account"
                         : authPage === AuthPageType.REGISTER
@@ -62,7 +62,7 @@ export const AuthPanel = () => {
                 </div>
                 <AnimatedComponent type="slide">
                     <img
-                        className="hidden max-w-xl md:block"
+                        className="mt-10 hidden max-w-xl md:block"
                         src={`${process.env.REACT_APP_IMAGE_URL}/${
                             authPage === AuthPageType.LOGIN
                                 ? "login"
