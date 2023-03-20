@@ -24,10 +24,10 @@ class MatchSerializer(serializers.ModelSerializer):
 
 
 class MatchAllInfoSerializer(serializers.ModelSerializer):
-    team1 = TeamSerializer()
-    team2 = TeamSerializer()
-    winner = TeamSerializer()
-    bat_first = TeamSerializer()
+    team1 = TeamSerializer(read_only=True)
+    team2 = TeamSerializer(read_only=True)
+    winner = TeamSerializer(read_only=True)
+    bat_first = TeamSerializer(read_only=True)
     result = serializers.ReadOnlyField()
     slug = serializers.ReadOnlyField()
     scheduled = serializers.ReadOnlyField()
@@ -35,10 +35,33 @@ class MatchAllInfoSerializer(serializers.ModelSerializer):
     entry_cutoff_passed = serializers.ReadOnlyField()
     double_cutoff_passed = serializers.ReadOnlyField()
     form = serializers.ReadOnlyField()
+    t1 = serializers.CharField(write_only=True)
+    t2 = serializers.CharField(write_only=True)
 
     class Meta:
         model = Match
         fields = "__all__"
+
+    def validate_team(self, value, t):
+        team = Team.objects.get_object_or_none(shortname=value)
+        if not team:
+            raise serializers.ValidationError(f"Invalid {t} value")
+        else:
+            return team
+
+    def validate_t1(self, value):
+        return self.validate_team(value, 'Team 1')
+
+    def validate_t2(self, value):
+        return self.validate_team(value, 'Team 2')
+
+    @transaction.atomic
+    def create(self, validated_data):
+        team1 = validated_data.pop('t1', None)
+        team2 = validated_data.pop('t2', None)
+        match = Match.objects.create(
+            team1=team1, team2=team2, **validated_data)
+        return match
 
 
 class MatchUpdateSerializer(serializers.ModelSerializer):

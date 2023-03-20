@@ -1,12 +1,35 @@
 import { useAuthContext } from "context/AuthContext";
 import { useNavbarContext } from "context/NavbarContext";
 import { useLogout } from "features/AuthPageLayout/hooks/useLogout";
+import { useLoader } from "hooks/useLoader";
+import { useMatches } from "hooks/useMatches";
+import { IMatch } from "interfaces/matches";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 import { UserDropdownLink } from "./UserDropdownLink";
 
 export const UserDropdownMenu = () => {
     const { showUserDropMenu } = useNavbarContext();
     const { state } = useAuthContext();
     const { logoutUser } = useLogout();
+    const { isLoading, isError, error, data: matches } = useMatches();
+    const { setLoader } = useLoader();
+
+    useEffect(() => {
+        setLoader(isLoading);
+    }, [isLoading, setLoader]);
+
+    if (isError) {
+        const message =
+            (error as any)?.response?.data?.errors?.[0].detail ??
+            "Internal Server Error";
+        toast.error(message);
+        return null;
+    }
+
+    const lastMatch: IMatch | undefined = matches
+        ?.filter((item: IMatch) => !item.scheduled)
+        .sort((a: IMatch, b: IMatch) => b.num - a.num)?.[0];
 
     return (
         <div
@@ -25,10 +48,12 @@ export const UserDropdownMenu = () => {
                         </span>
                     </div>
                     <ul className="py-2" aria-labelledby="user-menu-button">
-                        <UserDropdownLink
-                            path="/auth/change-winner"
-                            title="Change IPL Winner"
-                        />
+                        {lastMatch && lastMatch?.num >= 35 ? null : (
+                            <UserDropdownLink
+                                path="/auth/change-winner"
+                                title="Change IPL Winner"
+                            />
+                        )}
                         <UserDropdownLink
                             path="/auth/change-password"
                             title="Change Password"

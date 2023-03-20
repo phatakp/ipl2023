@@ -21,6 +21,7 @@ class UserAccount(AbstractUser):
     doubles = models.PositiveSmallIntegerField(_("doubles"), default=5)
     amount = models.FloatField(_("amount"), default=0.00)
     stats = models.JSONField(default=default_user_stats)
+    paid = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["name"]

@@ -1,6 +1,9 @@
 from rest_framework import permissions
-from rest_framework.generics import (ListAPIView, RetrieveAPIView,
-                                     RetrieveUpdateAPIView)
+from rest_framework.generics import (
+    ListCreateAPIView,
+    RetrieveAPIView,
+    RetrieveUpdateAPIView,
+)
 from rest_framework.response import Response
 
 from .helpers.probability import calc_win_prob
@@ -10,10 +13,10 @@ from .serializers import MatchAllInfoSerializer, MatchUpdateSerializer
 
 
 # Create your views here.
-class MatchListView(ListAPIView):
+class MatchListCreateView(ListCreateAPIView):
     model = Match
     serializer_class = MatchAllInfoSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Match.objects.all()
 
 

@@ -52,3 +52,13 @@ export interface IMatchChangeData {
     t1score: ITeamScore;
     t2score: ITeamScore;
 }
+
+export interface IMatchAddData {
+    num: number;
+    date: string;
+    t1: string;
+    t2: string;
+    type: string;
+    venue: string;
+    min_bet: number;
+}

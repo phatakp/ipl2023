@@ -1,6 +1,14 @@
-import { IMatchChangeData } from "interfaces/matches";
+import { IMatchAddData, IMatchChangeData } from "interfaces/matches";
 import { IPredictionData } from "interfaces/predictions";
 import api from "./axios";
+
+export const addMatch = (token: string | undefined, data: IMatchAddData) => {
+    return api
+        .post("/matches/", data, {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((resp) => resp.data);
+};
 
 export const getMatches = () => {
     return api.get("/matches/").then((resp) => resp.data);

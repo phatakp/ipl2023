@@ -12,7 +12,7 @@ import { useMatch } from "hooks/useMatch";
 import { useTeamStats } from "hooks/useTeamStats";
 import { useEffect } from "react";
 import { MdOutlineErrorOutline } from "react-icons/md";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { MatchHeadtoHead } from "./MatchDetail/MatchHeadtoHead";
 import { MatchOverallStats } from "./MatchDetail/MatchOverallStats";
@@ -25,6 +25,7 @@ import { MatchDetailNavButtons } from "./MatchDetailNavButtons";
 export const MatchDetailPage = () => {
     const { matchNum } = useParams();
     const { state } = useAuthContext();
+    const navigate = useNavigate();
 
     const { statsPage, setPageToStats, setPageToPredictions } =
         useMatchSelector();
@@ -56,7 +57,12 @@ export const MatchDetailPage = () => {
             : (statsError as any)?.response?.data?.errors?.[0].detail ??
               "Internal Server Error";
         toast.error(message);
-        return null;
+        navigate("/matches");
+    }
+
+    if ((!isMatchLoading && !match) || (!isStatsLoading && !stats)) {
+        toast.error("No Match Found");
+        navigate("/matches");
     }
 
     const time = new Date(match?.date).toLocaleTimeString("en-us", {

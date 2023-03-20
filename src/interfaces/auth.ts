@@ -66,4 +66,5 @@ export interface IUser extends IUserShort {
     stats: IUserStats;
     form: string[];
     rank: number;
+    paid: boolean;
 }

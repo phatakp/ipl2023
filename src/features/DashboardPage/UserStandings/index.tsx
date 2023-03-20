@@ -1,4 +1,5 @@
 import { Pagination } from "components/Pagination";
+import { useAuthContext } from "context/AuthContext";
 import { UserRow } from "features/DashboardPage/UserStandings/UserRow";
 import { useLoader } from "hooks/useLoader";
 import { usePlayers } from "hooks/usePlayers";
@@ -7,6 +8,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 export const UserStandings = () => {
+    const { state } = useAuthContext();
     const [page, setPage] = useState(1);
     const { isLoading, isError, error, data: userList } = usePlayers();
 
@@ -23,6 +25,9 @@ export const UserStandings = () => {
         toast.error(message);
         return null;
     }
+
+    const paid = userList?.filter((item: IUser) => item.paid);
+    const sumPaid = paid?.length > 0 ? paid.length * 500 : 0;
 
     const total = userList?.length;
     let end = page * 10;
@@ -43,7 +48,11 @@ export const UserStandings = () => {
 
             <div className="relative overflow-x-auto shadow-md">
                 <div
-                    className={`mx-2 mt-4 grid grid-cols-6 items-center gap-2 px-2 text-left text-sm uppercase text-gray-100 sm:grid-cols-8 `}
+                    className={`mx-2 mt-4 grid  items-center gap-2 px-2 text-left text-sm uppercase text-gray-100 ${
+                        state?.user?.is_site_admin
+                            ? "grid-cols-7 sm:grid-cols-9"
+                            : "grid-cols-6 sm:grid-cols-8"
+                    }`}
                 >
                     <div className="font-bold">#</div>
                     <div className="col-span-2 text-left">Player</div>
@@ -52,9 +61,15 @@ export const UserStandings = () => {
                     <div className="col-span-2 hidden text-center sm:block">
                         Form
                     </div>
+                    {state?.user?.is_site_admin && <div></div>}
                 </div>
                 {users?.map((user: IUser) => (
-                    <UserRow key={user.id} user={user} />
+                    <UserRow
+                        key={user.id}
+                        user={user}
+                        show={state?.user?.is_site_admin}
+                        sumPaid={sumPaid}
+                    />
                 ))}
             </div>
 

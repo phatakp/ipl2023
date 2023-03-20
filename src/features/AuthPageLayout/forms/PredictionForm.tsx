@@ -37,7 +37,7 @@ export const PredictionForm = () => {
         teamName: userPred?.team?.shortname ?? "",
     });
 
-    const { teamName, amount } = formData;
+    const { id, teamName, amount } = formData;
 
     const { setLoader } = useLoader();
 
@@ -73,7 +73,12 @@ export const PredictionForm = () => {
     const onFormSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (userPred) updatePrediction(formData);
+        if (!teamName || !amount) {
+            toast.error("Both fields required");
+            return;
+        }
+
+        if (id !== 0) updatePrediction(formData);
         else {
             const { id, ...rest } = formData;
             addPrediction(rest);

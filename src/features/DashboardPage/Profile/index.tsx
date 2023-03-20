@@ -1,10 +1,18 @@
 import { AnimatedComponent } from "components/AnimatedComponent";
+import { ModalForm } from "components/ModalForm";
+import { useModal } from "context/ModalContext";
+import { MatchAddForm } from "features/AuthPageLayout/forms/MatchAddForm";
 import { IUser } from "interfaces/auth";
 import { FaRupeeSign } from "react-icons/fa";
 
 export const Profile = ({ user }: { user: IUser | undefined }) => {
+    const { openModal } = useModal();
+
     return (
         <AnimatedComponent type="appear">
+            <ModalForm title="Add Match">
+                <MatchAddForm />
+            </ModalForm>
             <div
                 className={`relative w-full bg-cover bg-center bg-no-repeat p-8 pb-0`}
                 style={{
@@ -18,8 +26,16 @@ export const Profile = ({ user }: { user: IUser | undefined }) => {
                                 <span className="text-xl">{user?.name}</span>
                             </div>
 
-                            <span className="text-4xl font-extrabold text-white md:mt-4 md:text-[3rem]">
+                            <span className="inline-flex items-center text-4xl font-extrabold text-white md:mt-4 md:text-[3rem]">
                                 #{user?.rank}
+                                {user?.is_site_admin && (
+                                    <button
+                                        className="btn-orange ml-4 rounded px-2 py-1 text-sm"
+                                        onClick={openModal}
+                                    >
+                                        + Match
+                                    </button>
+                                )}
                             </span>
                         </div>
 

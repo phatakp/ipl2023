@@ -1,18 +1,9 @@
 from django.urls import path
 
-from .views import (
-    LoadUserView,
-    LoginView,
-    LogoutView,
-    RefreshTokenView,
-    RegisterView,
-    UserChgPwdView,
-    UserListView,
-    UserResetPwdView,
-    UserUpdateAmountView,
-    UserValidateEmailView,
-    UserWinnerUpdateView,
-)
+from .views import (LoadUserView, LoginView, LogoutView, RefreshTokenView,
+                    RegisterView, UserChgPwdView, UserListView,
+                    UserResetPwdView, UserUpdateAmountView,
+                    UserValidateEmailView, UserWinnerUpdateView)
 
 app_name = "users"
 
@@ -29,5 +20,5 @@ urlpatterns = [
     path('change-winner/', UserWinnerUpdateView.as_view()),
     path('update-balance/<int:id>/', UserUpdateAmountView.as_view()),
     path('change-winner/', UserWinnerUpdateView.as_view()),
-    path('update-balance/<str:email>/', UserUpdateAmountView.as_view()),
+    path('paid/<str:email>/', UserUpdateAmountView.as_view()),
 ]

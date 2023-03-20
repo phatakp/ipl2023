@@ -1,9 +1,29 @@
+import { useAmountPaid } from "hooks/useAmoutPaid";
 import { IUser } from "interfaces/auth";
+import { ChangeEvent } from "react";
 
-export const UserRow = ({ user }: { user: IUser }) => {
+export const UserRow = ({
+    user,
+    show,
+    sumPaid,
+}: {
+    user: IUser;
+    show?: boolean;
+    sumPaid: number;
+}) => {
+    const { userPaid } = useAmountPaid();
+
+    const onPaidClicked = (e: ChangeEvent<HTMLInputElement>) => {
+        userPaid({ email: user?.email, paid: e.target.checked });
+    };
+
     return (
         <div
-            className={`mx-2 mb-4 mt-1 grid grid-cols-6 items-center gap-2 rounded-lg border-2 border-gray-500 bg-white px-2 text-left text-sm font-semibold text-gray-700 sm:grid-cols-8 `}
+            className={`mx-2 mb-4 mt-1 grid items-center gap-2 rounded-lg border-2 border-gray-500 bg-white px-2 text-left text-sm font-semibold text-gray-700 ${
+                show
+                    ? "grid-cols-7 sm:grid-cols-9"
+                    : "grid-cols-6 sm:grid-cols-8"
+            }`}
         >
             <div className="font-bold">{user.rank}</div>
             <div className="col-span-2 text-left capitalize">
@@ -18,11 +38,16 @@ export const UserRow = ({ user }: { user: IUser }) => {
                 <span>{user.winner.shortname}</span>
             </div>
             <div
-                className={`py-1 text-right ${
+                className={`inline-flex items-center justify-end py-1 text-right ${
                     user.amount < 0 ? "text-red-600" : "text-green-500"
                 }`}
             >
                 {user.amount.toFixed(0)}
+                {(user?.paid || user?.is_site_admin) && (
+                    <span className="text-[0.6rem] text-gray-500">
+                        {user?.is_site_admin ? `-${sumPaid}` : "+500"}
+                    </span>
+                )}
             </div>
             <div className="col-span-2 hidden items-center justify-center gap-1 py-1 sm:inline-flex">
                 {user.form.map((item, index) => (
@@ -40,6 +65,19 @@ export const UserRow = ({ user }: { user: IUser }) => {
                     </span>
                 ))}
             </div>
+            {show && !user?.is_site_admin && (
+                <div className="py-1">
+                    <input
+                        id="paid"
+                        name="paid"
+                        checked={user?.paid}
+                        type="checkbox"
+                        value=""
+                        onChange={onPaidClicked}
+                        className="h-4 w-4 rounded border-gray-600 bg-gray-700 text-blue-600 ring-offset-gray-800 focus:ring-2 focus:ring-blue-600"
+                    />
+                </div>
+            )}
         </div>
     );
 };

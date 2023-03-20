@@ -56,6 +56,13 @@ export const MatchPredictions = ({ match }: { match: IMatch }) => {
                             Time
                         </div>
                     </div>
+                    {matchPreds?.length === 0 && (
+                        <div className="relative mx-2 mt-1 mb-4 grid grid-cols-10 items-center gap-2 rounded-lg border-2 border-gray-500 bg-white px-2 text-center font-semibold text-red-700 sm:grid-cols-8 md:grid-cols-9">
+                            <span className="col-span-10 sm:col-span-8 md:col-span-9">
+                                No Predictions Yet
+                            </span>
+                        </div>
+                    )}
                     {matchPreds?.map((pred: IPred, index: number) => (
                         <PredictionRow
                             key={pred.id}
@@ -65,11 +72,6 @@ export const MatchPredictions = ({ match }: { match: IMatch }) => {
                             currUserId={state?.user?.id}
                         />
                     ))}
-                    {!matchPreds && (
-                        <div className="col-span-10 sm:col-span-8 md:col-span-9">
-                            No Predictions Yet
-                        </div>
-                    )}
                 </div>
             </div>
         </AnimatedComponent>

@@ -84,7 +84,7 @@ export const userAmountPaid = (
 ) => {
     return api
         .patch(
-            `/auth/update-balance/${email}/`,
+            `/auth/paid/${email}/`,
             { paid },
             {
                 headers: { Authorization: `Bearer ${token}` },

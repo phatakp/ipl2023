@@ -3,7 +3,6 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from django.db import transaction
-from django.db.models import F
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework_simplejwt import serializers as jwt_serializers
@@ -111,6 +110,7 @@ class UserAllInfoSerializer(serializers.ModelSerializer):
             'stats',
             "form",
             "rank",
+            "paid",
         )
         extra_kwargs = {
             "id": {"read_only": True},
@@ -169,24 +169,9 @@ class UserValidateEmailSerializer(serializers.ModelSerializer):
 
 
 class UserUpdateAmountSerializer(serializers.ModelSerializer):
-    paid = serializers.BooleanField(write_only=True)
-
     class Meta:
         model = get_user_model()
-        fields = ('email', 'paid')
-
-    @transaction.atomic
-    def update(self, instance, validated_data):
-        paid = validated_data.get('paid')
-        if paid:
-            instance.amount += 500
-            instance.save()
-            get_user_model().objects.filter(is_site_admin=True).update(amount=F('amount')-500)
-        else:
-            instance.amount -= 500
-            instance.save()
-            get_user_model().objects.filter(is_site_admin=True).update(amount=F('amount')+500)
-        return instance
+        fields = ('paid',)
 
 
 class ChgPwdSerializer(serializers.ModelSerializer):
