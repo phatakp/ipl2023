@@ -13,8 +13,12 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         with open(file_path, 'r+') as f:
             data = f.read()
-            data = data[:15] + DJANGO_LOAD_STATIC + data[15:]
-            fixed_data = self.add_django_static_to_files(data)
+            fixed_data = data.replace(
+                'src="/static/', 'src="https://ipl2023.s3.ap-south-1.amazonaws.com/')
+            fixed_data = fixed_data.replace(
+                'href="/static/', 'src="https://ipl2023.s3.ap-south-1.amazonaws.com/')
+            # data = data[:15] + DJANGO_LOAD_STATIC + data[15:]
+            # fixed_data = self.add_django_static_to_files(data)
             f.seek(0)
             f.write(fixed_data)
             f.truncate()
