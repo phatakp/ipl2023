@@ -27,7 +27,7 @@ export const UserRow = ({
         >
             <div className="font-bold">{user.rank}</div>
             <div className="col-span-2 text-left capitalize">
-                {user.name.split(" ")[0]}
+                {user.name.split(" ")[0].toLowerCase()}
             </div>
             <div className="col-span-2 flex flex-row items-center justify-start py-1 text-gray-900">
                 <img
