@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand
 
 file_path = settings.BASE_DIR / "templates" / "index.html"
 DJANGO_LOAD_STATIC = "{% load static %}"
-STATIC = "/static/"
+STATIC = "./static/"
 
 
 class Command(BaseCommand):
@@ -13,10 +13,6 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         with open(file_path, 'r+') as f:
             data = f.read()
-            # fixed_data = data.replace(
-            #     'src="/static/', 'src="https://ipl2023.s3.ap-south-1.amazonaws.com/')
-            # fixed_data = fixed_data.replace(
-            #     'href="/static/', 'src="https://ipl2023.s3.ap-south-1.amazonaws.com/')
             data = data[:15] + DJANGO_LOAD_STATIC + data[15:]
             fixed_data = self.add_django_static_to_files(data)
             f.seek(0)
@@ -24,18 +20,19 @@ class Command(BaseCommand):
             f.truncate()
 
     def add_django_static_to_files(self, data):
-        SRC = 'src="/static/'
+        SRC = 'src="./static/'
         srcpos = data.find(SRC)
         stpos = srcpos+data[srcpos:].find(STATIC)
         endsrc = stpos+data[stpos:].find('"')
         data = data[:stpos] + '{% static ' + "'" + \
-            data[stpos+8:endsrc] + "'" + '%}' + data[endsrc:]
+            data[stpos+len(STATIC):endsrc] + "'" + '%}' + data[endsrc:]
 
-        HREF = 'href="/static/'
+        HREF = 'href="./static/'
         hrefpos = data.find(HREF)
         stpos1 = hrefpos+data[hrefpos:].find(STATIC)
         endhref = stpos1+data[stpos1:].find('"')
         data = data[:stpos1] + '{% static ' + \
-            "'" + data[stpos1+8:endhref] + "'" + '%}' + data[endhref:]
+            "'" + data[stpos1+len(STATIC):endhref] + \
+            "'" + '%}' + data[endhref:]
 
         return data
