@@ -44,12 +44,12 @@ export const PredictionRow = ({
                     {index ?? pred?.match?.num}
                 </span>
             </div>
-            <div className="col-span-3 sm:col-span-2">
+            <div className="col-span-3 capitalize sm:col-span-2">
                 {user
                     ? pred?.match?.team1.shortname
                         ? `${pred?.match?.team1.shortname}vs${pred?.match?.team2.shortname}`
                         : "IPL Winner"
-                    : pred.user.name.split(" ")[0]}
+                    : pred.user.name.split(" ")[0].toLowerCase()}
             </div>
             <div className="col-span-2 flex flex-row items-center justify-center py-1 sm:col-span-1 md:justify-start">
                 {show ? (
