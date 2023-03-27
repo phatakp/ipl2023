@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 export const PredictionForm = () => {
     const { item } = useMatchContext();
     const { matchNum } = useParams();
+
     const num = item ? item.num : !!matchNum ? Number(matchNum) : undefined;
 
     const {
@@ -46,6 +47,7 @@ export const PredictionForm = () => {
         setFormData({
             ...formData,
             id: userPred?.id ?? 0,
+            matchNum: num ?? 0,
             amount: userPred?.amount ?? item?.min_bet ?? match?.min_bet,
             teamName: userPred?.team?.shortname ?? "",
         });
