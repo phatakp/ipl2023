@@ -21,7 +21,7 @@ export const RulesPage = () => {
                     <ol className="ml-4 list-inside list-disc">
                         <li className="mt-2 font-bold">
                             Every player has to predict the winner of the match
-                            atleast 1 hour before start of the match.
+                            atleast 30 minutes before start of the match.
                         </li>
                         <li className="">
                             Minimum Stake is applicable for each match as below.{" "}
